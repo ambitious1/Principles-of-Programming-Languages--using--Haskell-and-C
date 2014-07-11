@@ -1,0 +1,130 @@
+/*
+Travis D.
+CS 357
+Principles of Programming Languages
+Stopwatch
+*/
+
+#include <iostream>
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+#include <windows.h>
+#include <iostream>
+#include <cstring>
+#include <cstdlib>
+#include <iomanip>
+#include <conio.h> 
+
+
+using namespace std;
+void stopwatch();
+int main()
+{
+system("color E2");
+char choice;
+do
+{
+cout<<" STOPWATCH"<<endl;
+cout<<"press only the letter"<<endl;
+cout<<"[s] START"<<endl;
+cout<<"[p] PAUSE"<<endl;
+cout<<"[c] CONTINUE(press it twice)"<<endl;
+cout<<"[x] EXIT"<<endl;
+cout<<"Choice: ";
+cin>>("%c", &choice);
+
+
+
+if (choice == 's' || choice== 'S')
+{
+stopwatch();
+}
+
+
+
+
+if (choice == 'x' || choice == 'X')
+{
+exit(1); 
+}
+
+
+
+system("cls");
+}
+while (choice != 's' || choice !='S' || choice != 'x' || choice != 'X'); 
+
+
+
+getch();
+return 0;
+}
+
+
+
+
+
+
+
+
+void stopwatch()
+{
+int hh,mm,ss,ms,z;
+hh=00;
+mm=00;
+ss=00;
+ms=00;
+z=1;
+
+while(hh<=24 && z==1) 
+{ mm=0;
+while(mm<=59 && z==1) 
+{ ss=0;
+while(ss<=59 && z==1) 
+{ ms=0;
+while(ms<=10 && z==1)
+{
+if(kbhit() != 1)
+{
+ms++;
+Sleep(50);
+system("cls")
+;
+printf("\n\n\n\n\n\n\n\n\n\t\t\t\t%02d: %02d: %02d: %02d\n", hh,mm,ss,ms);
+printf("\n\t\t\t Press any key(twice) to stop.\n");
+
+
+
+int a,b=0;
+if(kbhit())
+{
+a = getch();
+if(a == 80 || a == 112) //p
+
+a= getch();
+
+
+
+if(a == 67 || a == 99) //c
+
+b = getch();
+
+
+cout <<"a="<<a<<"b="<<b<< " ";
+}
+
+}
+else
+z=0;
+}
+ss++; 
+}
+mm++;
+}
+hh++; 
+} 
+printf("\n\n\t\t Press any key to return to the main menu.");
+getch();
+
+}
