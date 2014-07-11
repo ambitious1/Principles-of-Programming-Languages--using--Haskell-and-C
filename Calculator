@@ -1,0 +1,170 @@
+/*
+Travis D.
+CS 357
+Calculator
+*/
+
+#include <cstdlib>
+#include <iostream>
+#include <string>
+#include <conio.h> 
+#include <cstring>
+#include "c++tutorial9quizfuncts.cpp"
+#include <cmath>
+
+/*Function Forward Prototypes*/
+
+int option();
+char operation();
+float ReadNumber(float);
+
+/*Main Function*/
+int main()
+{
+
+    int selection;
+    float y,z;
+    char pick;
+    
+   do{
+       cout<<"Enter the Option you want to perform: ";
+       selection=option();
+                     
+switch (selection)
+{
+case '1':
+  
+    cout<<"\n\n\nPlease enter a number: ";
+       
+    while (!(cin>>y))                                   //If input is not of this data type
+    {   
+    cin.clear();                                        // reset the "failure" flag
+    cin.ignore( 1000, '\n' );                           // Skip to next newline or 1000 chars, 
+                                                        // whichever comes first. This is why 
+                                                        // you have to follow the input with 
+                                                        // <return> or <enter>.
+    cout << "Hey, follow instructions please: " << flush;
+    
+    cout<< "\a";
+    }     
+    
+
+    ReadNumber(y);
+    
+    cout<<"\n\n\nPlease enter another number: ";
+       
+    while (!(cin>>z))                                   //If input is not of this data type
+    {   
+    cin.clear();                                        // reset the "failure" flag
+    cin.ignore( 1000, '\n' );                           // Skip to next newline or 1000 chars, 
+                                                        // whichever comes first. This is why 
+                                                        // you have to follow the input with 
+                                                        // <return> or <enter>.
+    cout << "Hey, follow instructions please: " << flush;
+    
+     cout<<"\a";
+    }     
+    
+    
+    ReadNumber(z);
+
+    /*Pick the operation you want to perform*/
+    cout<<"\n\n\nEnter the one of the following operations that you wish to perform on the inputs (*, /, +, -, %, ^): \t";
+    
+    pick = operation();
+    
+    switch (pick){
+           
+    case '*':           
+       long double answer1;
+       answer1 = y*z;
+       cout <<"\n\nYou have selected the Multiplication Operation between: "<<y<<" & "<< z <<endl;
+       cout <<"The product is: "<<answer1<<endl<<endl;                      
+      
+       break;                
+    
+    case '/':
+       long double answer2;
+       answer2 = y/z;
+       cout <<"\n\nYou have selected the Division Operation between: "<<y<<" & "<< z <<endl;
+       cout <<"The quotient is: "<<answer2<<endl<<endl;                        
+       break;
+    
+    
+    case '+':
+       long double answer3;
+       answer3 = y+z;
+       cout <<"\n\nYou have selected the Addition Operation between: "<<y<<" & "<< z <<endl;
+       cout <<"The sum is: "<<answer3<<endl<<endl;                      
+       break;
+    
+    
+    case '-':
+       long double answer4;
+       answer4 = y-z;
+       cout <<"\n\nYou have selected the Subtraction Operation between: "<<y<<" & "<< z <<endl;
+       cout <<"The deduction is: "<<answer4<<endl<<endl;                      
+       cout<<5%4;
+       break;                     
+    
+        
+    case '%':
+       long double answer5;
+       //answer5 = y%z;
+       cout <<"\n\nYou have selected the Modulus Operation between: "<<y<<" & "<< z <<endl;
+       cout <<"The mod is: "<<answer5<<endl<<endl;                      
+       break;                  
+       
+    
+    case '^':
+       long double answer6;
+       answer6 = pow(y,z);
+       cout <<"\n\nYou have selected the Power Operation between: "<<y<<" & "<< z <<endl;
+       cout <<"The answer is: "<<answer6<<endl<<endl;                                 
+       break;
+
+
+    default: 
+       cout<< "The operation you've selected is not valid....\n\a";         
+       break;
+       } 
+    
+    break;  
+           
+case '2':
+     cout<<"\n\n\nDone.........\n\n\n";
+     break;
+     
+default:
+     cout<<"Invalid Input for Selection, please try again...\a\n\n";
+     break;
+     
+}}
+while(selection!='2');
+
+
+
+system("PAUSE<NUL");
+}
+
+/*Operation Function*/
+char operation(){
+    
+    char pick;
+    
+    pick = getche();/*this displays the users input and 
+    automatically processes the user's input without 
+    having to press the enter key*/
+    
+    switch (pick)
+    {
+           case '*': break;
+           case '/': break;
+           case '+': break;
+           case '-': break;
+           case '%': break;
+           case '^': break;    
+                          
+      }
+    return pick;
+ }
