@@ -1,0 +1,298 @@
+/*
+Travis D.
+CS 357
+Principles of Programming Languages
+Linked List in C
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+
+#define MAX 100//sets the value of max of the char arrays to 100
+ 
+struct account_data //the node constructor
+{
+    int  ID;//in the node you have the number 
+    char NAME[MAX];//
+    float balance;
+    struct account_data *next;//this initializes the the linking part
+};
+ 
+/* ********************************************************************/
+/*  Function to insert a node at the front of the linked list.        */
+/*  front: front pointer, id: Account ID, name: Account Owner        */
+/*  Balance: Account Balance                                        */
+/*  Returns the new front pointer.                                    */
+/* ********************************************************************/
+struct account_data *insert(struct account_data *front, int id, char name[],
+float bal)
+{
+    struct account_data *newnode;
+ 
+    newnode = (struct account_data*)malloc(sizeof(struct account_data));
+    /*allocates memory for each new node of the link list when a new node is added*/
+ 
+    if (newnode == NULL)
+    {
+        printf("\n Allocation failed \n");
+        exit(2);
+    }
+    /**********************************************************************
+    This renames the variables used in each node since you can't use a 
+    vaariable name that is used in a structure field, similar to the private
+    section in a class
+    ***********************************************************************/
+    newnode->ID = id;
+    strcpy(newnode->NAME, name);
+    newnode->balance = bal;
+    newnode->next = front;
+    front = newnode;
+    return(front);
+}
+/*  End of insert() */
+ 
+/*  Function to display a node in a linked list */
+void printNode(struct account_data *p)
+{
+    printf("\n***** Account Details *****\n\n");
+    printf("\n Account Num: %d", p->ID);
+    printf("\n Name       : %s", p->NAME);
+    printf("\n Balance: $%5.2f", p->balance);
+    /**************************************************************
+    Shows the dollar amount with 
+    correct amount of decimal places after the the decimal point, or else it 
+    will show all the places that a float data type can contain
+    *****************************************************************/
+    
+    printf("\n\n-------------------------------------\n");//separates each node
+}
+/*  End of printNode() */
+ 
+ void printinfile(struct account_data *p)
+ {
+      FILE *fp;
+      
+      fp = fopen("file.txt","w");
+ /*Create a file and add text*/
+      fprintf(fp,"\n****** Account Details *****\n\n"); /*writes data to the file*/
+      fprintf(fp,"\n Account Num: %d", p->ID);
+      fprintf(fp,"\n Name       : %s", p->NAME);
+      fprintf(fp,"\n Balance: $%5.2f", p->balance);
+      fprintf(fp,"\n\n-------------------------------------\n");
+      
+      fclose(fp); /*done!*/
+ }
+/*********************************************************
+    Function to deleteNode a node based on account number 
+    front: front pointer, id: Key value                       
+    Returns: the modified list.                            
+  ********************************************************/
+struct account_data* deleteNode(struct account_data *front, int id)
+{
+    struct account_data *ptr; //ptr 
+    struct account_data *bptr;//stands for before ptr
+ 
+ /**********************************************************************
+ This checks to see if the node that user wants to delete is the first node. 
+ If true then it reassigns the front of the list to the node after front, then 
+ the free function is used to delete the original node that was labelled front.
+  **********************************************************************/
+    if (front->ID == id)
+    {
+        ptr = front;
+        printf("\n Node deleted:\n");
+        printNode(front);
+        front = front->next;
+        free(ptr);
+        return(front);
+    }
+    /*************************************************************************
+    This checks to see if the node that the user wants deleted is after the front
+    node. Then when it finds the specific node it moves the assignments of ptr, and
+    bptr down the list by one node.  
+    ***************************************************************************/
+    for (ptr = front->next, bptr = front; ptr != NULL; ptr = ptr->next,
+bptr = bptr->next)
+    {
+        if (ptr->ID == id)
+        {
+            printf("\n Node deleted:");
+            printNode(ptr);
+            bptr->next = ptr->next;
+            free(ptr);
+            return(front);
+        }
+    }
+    printf("\n Account Number %d not found ", id);
+    return(front);
+}
+/*  End of deleteNode() */
+ 
+/*****************************************************************
+  Function to search the nodes in a linear fashion based account ID 
+  front: front pointer, key: key ID.                            
+ ****************************************************************/
+void search(struct account_data *front, int key)
+{
+    struct account_data *ptr;
+
+    for (ptr = front; ptr != NULL; ptr = ptr -> next)
+    {
+        if (ptr->ID == key)
+        {
+            printf("\n Key found:\n");
+            printNode(ptr);
+            return;
+        }
+    }
+    printf("\n Account Number %d not found ", key);
+}
+/*  End of search() */
+ 
+/*  Function to display the linked list */
+void display(struct account_data  *front)
+{
+    struct account_data *ptr;
+ 
+    for (ptr = front; ptr != NULL; ptr = ptr->next)
+    {
+        printNode(ptr);
+    }
+}
+
+void displaytofile(struct account_data *front)
+{
+     FILE *fp;
+     
+     struct account_data *ptr;
+     
+     fp = fopen("file.txt","r");
+     
+     for (ptr = front; ptr!= NULL; ptr = ptr->next)
+     {
+              printinfile(ptr);
+         }
+      fclose(fp);
+     }
+/*  End of display() */
+ 
+/*  Function to display the menu of operations on a linked list */
+void menu()
+{
+    printf("---------------------------------------------\n");
+    printf("Press 1 to ADD an Account                    \n");
+    printf("Press 2 to DELETE an Account                 \n");
+    printf("Press 3 to DISPLAY the Accounts              \n");
+    printf("Press 4 to SEARCH for a Specific Account     \n");
+    printf("Press 5 to DISPLAY the Accounts to a File    \n");
+    printf("Press 6 to EXIT                              \n");
+    printf("---------------------------------------------\n");
+}
+/*  End of menu() */
+ 
+/*  Function to select the option */
+char option()
+{
+    char choice;
+ 
+    printf("\n\n>> Enter your choice: ");
+    switch(choice=getche())//getche automatically implements the case selected without having to press enter
+    {
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':     
+        case '6':   return(choice);
+        default :   printf("\n Invalid choice.");//Error Message prompt
+    }
+    return choice;
+}
+/*  End of option() */
+ 
+/*  The main() program begins */
+int main()
+{
+    struct account_data *linkList,*pass, *front;
+    char name[100], temp[100];
+    char choice;
+    float bal;
+    int eno;//This variable is used to accosiate with the ID variable of each node
+    
+    linkList = NULL;
+    printf("\n Welcome to Banking Account System \n");
+    menu();
+    do
+    {
+        /*  choose operation to be performed */
+        choice = option();
+        switch(choice)
+        {
+        case '1':
+            srand(time(NULL));
+            eno = rand();
+            /************************************************************
+            This is the random generating function using the time library. It sets the 
+            account number to be different everytime since there is no seed in the 
+            srand function, if there was a specific number then there would be 
+            some type of order to the numbers genereated.
+            **************************************************************/
+            printf("\nEnter the Name        : ");
+            fflush(stdin);
+            gets(name);
+            printf("Enter the Account Balance  :        $");
+            scanf("%f", &bal);
+            
+            linkList = insert(linkList, eno, name, bal);
+            
+            for (linkList=front; linkList->next != NULL; linkList = linkList->next)
+            {  for (pass=linkList->next; pass!=NULL; pass=pass->next)
+{        	if (linkList->eno > pass->eno)
+        	{   temp = linkList->eno;
+        	    linkList->eno = pass->eno;
+        	    pass->eno = temp;
+        	}}
+            break;
+        case '2':
+            printf("\n\n Enter the Account number to be deleted: ");
+            scanf("%d", &eno);
+            linkList = deleteNode(linkList, eno);
+            
+            for (linkList=front; linkList->next != NULL; linkList = linkList->next)
+            {  for (pass=linkList->next; pass!=NULL; pass=pass->next){
+        	if (linkList->eno > pass->eno)
+        	{   temp = linkList->eno;
+        	    linkList->eno = pass->eno;
+        	    pass->eno = temp;
+        	}            }
+            break;
+        case '3':
+            if (linkList == NULL)
+            {
+                printf("\n List empty.");
+                break;
+            }
+            display(linkList);
+            break;
+        case '4':
+            printf("\n\n Enter the Account number to be searched: ");
+            scanf("%d", &eno);
+            search(linkList, eno);
+            break;
+        case '5':
+            if (linkList == NULL)
+            {
+                 printf("\nList Empty!!"); 
+                 break;
+            }
+            displaytofile(linkList);
+            break;
+        case '6': break;
+        }
+    } while (choice != '5');
+
+
+ return 0;
+}
