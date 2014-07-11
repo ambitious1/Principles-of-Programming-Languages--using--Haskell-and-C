@@ -1,0 +1,39 @@
+/*
+Travis D.
+CS 357
+Singly Linked List in C++
+*/
+
+#include <cstdlib>
+#include <iostream>
+
+using namespace std;
+
+struct node{
+       int data;
+       node *next;
+       };
+
+int main(int argc, char *argv[])
+{
+    node *root;
+    node *conductor;
+    
+    root = new node;
+    root->next = NULL;
+    root->data = 1;
+    conductor=root;
+    if (conductor!=NULL){
+       while (conductor->next!=NULL){
+             conductor = conductor->next;
+             cout<<conductor->data;
+             }           
+                 }
+    conductor = new node;
+    conductor=conductor->next;
+    conductor->next = NULL;
+    conductor->data=43;
+                    
+    system("PAUSE");
+    return EXIT_SUCCESS;
+}
