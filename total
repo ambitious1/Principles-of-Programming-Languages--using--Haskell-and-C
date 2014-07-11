@@ -1,0 +1,95 @@
+/*
+Travis D.
+CS 357
+Simple Total Calculator
+*/
+
+
+#include <cstdlib>
+#include <iostream>
+#include <string>
+#include <conio.h> 
+#include <cstring>
+#include "c++tutorial9quizfuncts.cpp"
+
+
+using namespace std;
+
+/*Function Forward Prototypes*/
+
+int option();
+float ReadNumber(float);
+void WriteNumber(float);
+
+
+/*Main Function*/
+int main(int argc, char *argv[])
+{
+    /*User Input Variables*/
+    int selection;
+    float y,z,answer;
+    
+     do{
+       cout<<"Enter the Option you want to perform: ";
+       selection=option();
+                     
+    switch (selection)
+   {
+          case '1':
+  
+    cout<<"\n\n\nPlease enter a number: ";
+       
+         while (!(cin>>y))                                   //If input is not of this data type
+    {   
+    cin.clear();                                        // reset the "failure" flag
+    cin.ignore( 1000, '\n' );                           // Skip to next newline or 1000 chars, 
+                                                        // whichever comes first. This is why 
+                                                        // you have to follow the input with 
+                                                        // <return> or <enter>.
+    cout << "Hey, follow instructions please: " << flush;
+    
+    cout<< "\a";
+    }     
+    
+
+    ReadNumber(y);
+    
+    cout<<"\n\n\nPlease enter another number: ";
+       
+         while (!(cin>>z))                                   //If input is not of this data type
+    {   
+    cin.clear();                                        // reset the "failure" flag
+    cin.ignore( 1000, '\n' );                           // Skip to next newline or 1000 chars, 
+                                                        // whichever comes first. This is why 
+                                                        // you have to follow the input with 
+                                                        // <return> or <enter>.
+    cout << "Hey, follow instructions please: " << flush;
+    
+     cout<<"\a";
+    }     
+    
+
+    ReadNumber(z);
+    WriteNumber(y);
+    WriteNumber(z);
+    
+    answer=ReadNumber(z) + ReadNumber(y);
+    
+    printf("The sum of %3.2f and %3.2f is: %3.2f",z,y,answer);
+    
+    cout<<"\n\n";
+    
+    break;
+    
+          case '2': break;  
+          
+          default: cout<<"\a";       
+    }
+}
+while(selection!='2');
+
+cout<<"\n\nEnd of Program........\n\n\n\n\n";
+
+
+      system("PAUSE<NUL");
+}
