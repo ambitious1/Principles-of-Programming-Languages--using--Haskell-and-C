@@ -1,0 +1,76 @@
+/*
+Travis D.
+CS 357
+Principles of Programming Languages
+Problem Solving Example
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+/*************************************************************************
+x = amount of peaches the monkey collects
+(x/2)-1 = how many peaches the monkey ate per day
+
+the 1 represents the addition peach eaten and the 2 represents the total divided in half 
+
+day 10 = 1 peach left
+
+So,......... the amount of peaches at the beginning of these days are: 
+(x+1)*2 = equation
+
+day 9 = (1 + 1) * 2 = 4 peaches
+day 8 = (4 + 1) * 2 = 10 peaches
+day 7 = (10 + 1) * 2 = 22 peaches
+day 6 = (22 + 1) * 2 = 46 peaches
+day 5 = (46 + 1) * 2 = 94 peaches
+day 4 = (94 + 1) * 2 = 190 peaches
+day 3 = (190 + 1) * 2 = 382 peaches
+day 2 = (382 + 1) * 2 = 766 peaches
+day 1 = (766 + 1) * 2 = 1534 peaches
+
+or 
+
+1 = (x/2)-1
+
+then, 2 = x/2
+
+then, 4 = x
+
+so the day before there were 4 peaches.
+
+*************************************************************************/
+
+int main(int argc, char *argv[])
+{
+ 
+ printf("\t\t\tLab 07 - C Programming II\n\n\n");   
+ 
+ printf("******************************* Problem *********************************\n\n");
+ printf("A monkey collected a bunch of peaches. He ate half of the peaches and\
+ one more  on the first day. On the following days, he ate half of the peaches\
+ that were   left over from previous day and one more. And on the tenth day,\
+ before he       started to eat, he found out there was only one peach left. So how\
+ many peaches were collected on the first day. \n\n");
+ printf("*************************************************************************\n\n");   
+  
+  int peaches = 0;
+  int day = 10;
+  
+  for (peaches = 1; day > 1 ; day--)
+  /**********************************************************************
+  Must be careful with loop since value will start from day 1 instead of day 0, 
+  since it would make an extra iteration we don't need. Plus he doesn't eat the
+  peach on day 10, so there should only be 9 iterationss of this loop
+  ***********************************************************************/
+       {       
+               peaches = (1 + peaches) * 2;
+               
+                       }
+               
+  printf("The total amount of peaches which was collected on day 1 was:  %d peaches\n\n", peaches);
+  
+  system("PAUSE");	
+  return 0;
+}
