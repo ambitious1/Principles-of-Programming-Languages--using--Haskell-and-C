@@ -1,0 +1,68 @@
+/*
+Travis D.
+CS 357
+Principles of Programming Languages
+Reverse Numbers
+*/
+
+#include <stdio.h>
+
+int countDigits(int num);
+
+ void reverse1(){
+   int num, reverse=0;
+   
+   while (num != 0)
+   {
+      reverse = reverse * 10;
+      reverse = reverse + num%10;
+      num = num/10;
+   }
+ 
+   printf("\n\nReverse of entered number is = %d\n", reverse);
+}
+ 
+int countDigits(int num){
+    static int count=0;
+
+     if(num!=0){
+          count++;
+         countDigits(num/10);
+    }
+
+    return count;
+}
+
+int main()
+{   int num,count, reverse;
+   
+  int countDigits(int num);
+  
+  printf("Enter a number: ");
+  scanf("%d",&num);
+  
+  if (num <= 0) 
+ {
+       printf("Error. Please enter a number between 0 and 9999: ");
+       scanf("%3d",&num);
+ }
+
+  if (num >= 9999)
+ {
+       printf("Error. Please enter a number between 0 and 9999: ");
+       scanf("%d",&num);
+ }
+
+  count = countDigits(num);
+  
+  reverse1();
+  
+  printf("Total digits is:  %d",count);
+  printf("\n\ n");
+   
+   
+  system("PAUSE");	
+  return 0;
+}
+
+
